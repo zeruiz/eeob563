@@ -1,1 +1,1 @@
-# new git repo
+# Placeholder for eeob563 labs
