@@ -10,6 +10,6 @@
 
 `codeml.ctl`: control file for `codeml` in `PAML`. Parameters need to be modified for different tree file.
 
-`arms2.root.H1.tre.txt`: tree file for \omega_{A_0}=\omega_{A_1}=\omega_{A_2}.
+`arms2.root.H1.tre.txt`: tree file for $\omega_{A_0}=\omega_{A_1}=\omega_{A_2}$.
 
 
