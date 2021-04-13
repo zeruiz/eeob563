@@ -10,6 +10,22 @@
 
 `codeml.ctl`: control file for `codeml` in `PAML`. Parameters need to be modified for different tree file.
 
-`arms2.root.H1.tre.txt`: tree file for $\omega_{A_0}=\omega_{A_1}=\omega_{A_2}$.
+`arms2.root.H0.tre.txt`: tree file for \omega_{A_0}=\omega_{A_1}=\omega_{A_2}.
 
+`arms2.root.H1.tre.txt`: tree file for \omega_{A_0}\neq\omega_{A_1}=\omega_{A_2}.
 
+`arms2.root.H2.tre.txt`: tree file for \omega_{A_0}\neq\omega_{A_1}\neq\omega_{A_2}.
+
+`results.txt`: result for H0 tree.
+
+`results1.txt`: result for H1 tree.
+
+`results2.txt`: result for H2 tree.
+
+`mlTree.raxml.log`: ML evaluation for best-scoring ML tree.
+
+`njTree.raxml.eval.log`: ML evaluation for NJ tree.
+
+`mpTree.raxml.eval.log`: ML evaluation for MP tree.
+
+`bayesTree.raxml.eval.log`: ML evaluation for bayesian tree.
