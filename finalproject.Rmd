@@ -4,6 +4,8 @@ title: |
     | $\textit{Brief Phylogenetic Analysis on Gene ARMS2}$
 author: $\textit{Zerui Zhang}$
 date: "4/13/2021"
+header-includes:
+    - \usepackage{setspace}\doublespacing
 output: 
   pdf_document:
     extra_dependencies: ["float"]
@@ -19,25 +21,24 @@ I bought the 23andMe kit two years ago out of interest and got an interesting pe
 
 AMD is a progressive chronic disease but may cause irreversible vision loss. The onset of the main symptoms is obscure, including blurred patches seen in the center of the vision, straight lines that appear to bend and fluctuate, etc. The symptoms become progressively more severe with age, making it difficult, if not impossible, for the elderly to perform daily tasks on their own. In addition to external environmental and a daily diet deficient in vitamins A, C, E, and zinc, genetic factors also bear a significant part of the responsibility[1]. The ARMS2 gene mutation is one of them.
 
-The ARMS2 gene produces proteins with unknown functions, while according to studies, it may be the most common cause of irreversible vision loss among older adults[2]. ARMS2 protein could be found primarily in the placenta (a temporary organ for baby nutrition in mother's uterus) and in the retina (a light-sensing tissue in the back of the eye). Several studies[3,4,5] claimed that the ARMS2 gene appeared to be present only in primates, or animals with a macula specifically. This conclusion is consistent with the result of `BLAST` on NCBI.
+The ARMS2 gene produces proteins with unknown functions, while according to studies, it may be the most common cause of irreversible vision loss among older adults[2]. ARMS2 protein could be found primarily in the placenta (a temporary organ for baby nutrition in mother's uterus) and in the retina (a light-sensing tissue in the back of the eye). Several studies[3,4,5] claimed that the ARMS2 gene appeared to be present only in primates, or animals with a macula specifically. This conclusion is consistent with the result of `BLAST` on NCBI. In this project, the phylogenetic relationships among several taxa were explored.
 
 ## Methods
 
 For the interested ARMS2 gene, 36 nucleotide sequences were obtained from the result of `BLAST`. After screening with query coverage greater than or equal to 45%, 14 sequences remained including the ARMS2 gene from human.
 
-Four major methods were applied to phylogenetic tree construction: maximum parsimony, distance based neighbor joining, maximum likelihood, and Bayesian method. The maximum parsimony analysis was carried out by `PAUP`. MP score was identified by branch-bound search and heuristic search, and the phylogenetic tree was built by a 200 replicate bootstrap search with 10 random additions TBR replicates per bootstrap replication. The bootstrap result was analyzed by consensus trees. The neighbor joining method was based on `FastME` and the distance matrices were computed by F84 which is the default. Two post-processing NNI and SPR were tested simultaneously to compare the results. For maximum likelihood method, `RAxML-NG` was used and the sequence evolution model was set as GTR+G. Bootstrap analysis of 1000 replicates was utilized and the support metric TBE and FBP were checked as well. Finally, `MrBayes` was used for Bayesian modeling. GTR+G model was assumed and the the prior for the rates heterogeneity was changed to exponential distribution with parameter 0.05. The number of cycles of MCMC was 300,000 and the frequencies with which the Markov chain sampled was 100. Two independent analysis with four chains each were run by default. The resulted consensus tree from `MrBayes` came to comparison at last.
+Four major methods were applied to phylogenetic tree construction: maximum parsimony, distance based neighbor joining, maximum likelihood, and Bayesian method. The maximum parsimony analysis was carried out by `PAUP`. MP score was identified by branch-bound search and heuristic search, and the phylogenetic tree was built by a 200 replicate bootstrap search with 10 random additions TBR replicates per bootstrap replication. The bootstrap result was analyzed by consensus trees. The neighbor joining method was based on `FastME` and the distance matrices were computed by F84 which is the default. Two post-processing NNI and SPR were tested simultaneously to compare the results. For maximum likelihood method, `RAxML-NG` was used and the sequence evolution model was set as GTR+G. Bootstrap analysis of 1000 replicates was utilized and the support metric TBE and FBP were checked as well. Finally, `MrBayes` was used for Bayesian modeling. GTR+G model was assumed and the the prior for the rates heterogeneity was changed to exponential distribution with parameter 0.05. The number of cycles of MCMC was 300,000 and the frequencies with which the Markov chain sampled was 100. Two independent analysis with four chains each were run by default. The convergence was validated by the average standard deviation of split frequencies. The resulted consensus tree from `MrBayes` came to comparison at last.
 
-Based on all the resulted trees, ML evaluation and tanglegram helped identify the topological differences. One hypotheis test was carried out to check whether human and gorilla has more closely related ARMS2 gene by GTR+G+I from `MrBayes`. Besides, another hypothesis testing about molecular evolution of the ARMS2 gene was performed using `codeml` from `PAML` after setting one outgroup as the root.
+Based on all the resulted trees, ML evaluation and tanglegram helped identify the topological differences. Based on the available results, *Callithrix jacchus* which located rather far away from the others was set as the outgroup. One hypothesis test was carried out to check whether human and gorilla has more closely related ARMS2 gene by GTR+G+I from `MrBayes`. Besides, another hypothesis testing about molecular evolution of the ARMS2 gene was performed using `codeml` from `PAML`.
 
 ## Results
 
 ### Maximum parsimony
 
-Bootstrap analysis with 10 random additions TBR replicates per bootstrap replication was carried out for a first check on the phylogenetic tree structure. The bootstrap result was analyzed by consensus tree, which provided an estimate for the level of support for each clade by combining clades which occurred in at least a certain percentage of the resampled trees. 
 ```{r, echo=FALSE,out.width="49%",out.height="30%",fig.cap="(left) majority rule consensus tree. (right) strict rule consensus tree.",fig.show='hold',fig.align='center'}
 knitr::include_graphics(c("bootMajRule.tree.jpg","bootStrict.tree.jpg"))
 ``` 
-A 50% threshold results in a majority rule consensus tree that included only those clades that were present in the majority of the trees in the resampled set, while strict rule consensus tree required the included clades were present in all the trees in the set. From figure 1, there were some differences between these two consensus trees, the difference is in the resolution of the grouping. Majority rule consensus tree were all binary while strict rule consensus tree had some nodes with more than 2 leaves. This explained that some groupings in bootstrap cannot achieve accurate results. However, these two trees could roughly represent the affinities of ARMS2 genes in these 14 species.
+From figure 1, there were some differences between these two consensus trees, the difference is in the resolution of the grouping. Majority rule consensus tree were all binary while strict rule consensus tree had some nodes with more than 2 leaves. This explained that some groupings in bootstrap cannot achieve accurate results. However, these two trees could roughly represent the affinities of ARMS2 genes in these 14 species.
 
 The branch and bound search, and the heuristic search with 100 random addition replicates and 4 branch swapping options (No, NNI, SPR, TBR) gave the same maximum parsimony score as 236 and the number of trees retained was 1. The phylogenetic tree is shown as figure 2, and it was pretty close to the majority rule consensus tree.
 ```{r, echo=FALSE,out.width="49%",out.height="30%",fig.cap="The only best tree built by heuristic search of maximum parsimony",fig.show='hold',fig.align='center'}
@@ -55,21 +56,20 @@ knitr::include_graphics("nj.tre.jpg")
 
 ### Maximum likelihood
 
-The principle of the maximum likelihood approach to tree construction is to estimate parameters based on different assumptions about the base frequencies and the substitution matrix such that the found parameters give the maximum likelihood value on the given multiple sequence alignment. To verify the accuracy of the tree, bootstrap analysis would resample columns of characters out of the result and rebuild the tree for dozens of times, and for each time it would test if the same nodes were recovered. The final proportions of recovery were mapped on the best scoring ML tree in figure 4.
+To verify the accuracy of the tree, bootstrap analysis would resample columns of characters out of the result and rebuild the tree for dozens of times, and for each time it would test if the same nodes were recovered. The final proportions of recovery were mapped on the best scoring ML tree in figure 4.
 
-ML tree inferece here was under the GTR+GAMMA (general time reversible model of nucleotide
-substitution with a $\Gamma$ model of rate heterogeneity) which meant the base frequencies were different and the substituion matrix is symmetrical; the rate variation among sites in a sequence was modeled by Gamma distribution. FBP (binary presence/absence of bipartitions from replicate trees in the best-scoring ML tree) and TBE (the minimum number of taxa that have to be transfered or removed to make those branches identical) were found similar for the bootstrap support analysis, and the grouping of best-scoring ML tree was quite similar to the previous two.
+ML tree inferece here was under the GTR+GAMMA. FBP (binary presence/absence of bipartitions from replicate trees in the best-scoring ML tree) and TBE (the minimum number of taxa that have to be transfered or removed to make those branches identical) were found similar for the bootstrap support analysis, and the grouping of best-scoring ML tree was quite similar to the previous two.
 ```{r, echo=FALSE,out.width="49%",out.height="30%",fig.cap="(left) TBE bootstrap values mapped to the best-scoring ML tree. (right) the best-scroing ML tree.",fig.show='hold',fig.align='center'}
 knitr::include_graphics(c("all.raxml.supportTBE.tre.jpg","all.raxml.bestTree.tre.jpg"))
 ``` 
 
 ### Bayesian method
 
-The Bayesian approach is also a model-based parametric approach, except that the point estimates in the maximum likelihood approach become the parameter estimation within the posterior distribution here. The analysis was performed on the unpartitioned alignments using the same GTR+GAMMA model. Again, the consensus tree from the later cycles of MCMC was still similar to the previous ones.
+The Bayesian analysis was performed on the unpartitioned alignments using the same GTR+GAMMA model. Again, the consensus tree from the later cycles of MCMC was still similar to the previous ones.
 
-Based on the observation that all four methods gave trees with very similar topologies, an attempt to construct rooted trees was made. Callithrix Jacchus, which is relatively distant from the other taxa, was selected as the outgroup and the re-rooted tree can be viewed in figure 5 (right).
+Based on the observation that all four methods gave trees with very similar topologies, an attempt to construct rooted trees was made. *Callithrix Jacchus*, which is relatively distant from the other taxa, was selected as the outgroup and the re-rooted tree can be viewed in figure 5 (right).
 
-From the rooted tree, one topological hypothesis between ARMS2 from human and that from gorilla was conducted to see whether they were more closely related to each other than the others or not. Some experimental data were recorded and shown in table 1. The average standard deviation that approached to 0 along the run was the signal of convergence of MCMC and from the result we could assume the convergence was achieved for both of the analysis.
+From the rooted tree, one topological hypothesis between ARMS2 from human and that from gorilla was conducted to see whether they were more closely related to each other than the others or not. Results from trees representing alternative hypotheses are shown in Table 1. An average standard deviation that approached 0 indicated convergence of the MCMC.
 
 Take the harmonic mean of log likelihoods from two chains for each analysis to compute the ln-Bayes factor $K=\ln [B F(M_0, M_1)]=\ln [P(X \mid M_0)]-\ln [P(X \mid M_1)]$. $K=-2.61$ indicated that we should favor the latter one which was "human and gorilla does not have a more closely related ARMS2 gene than the others". This can be confirmed by the greater log likelihood that the latter one produced. The tree was omitted here since it was just the same as figure 5.
 ```{r, echo=FALSE,out.width="49%",out.height="30%",fig.cap="(left) concensus tree from Bayesian modeling without outgroup. (right) concensus tree from Bayesian modeling with Callithrix Jacchus as outgroup.",fig.show='hold',fig.align='center'}
@@ -124,7 +124,7 @@ Based on the rooted tree on the figure 5 (right), I attempted a hypothesis test 
 From table 3, no significant differences were found from the 2 tests. The estimated ratios $dN/dS$ were also close to 1. These could indicate that ARMS2 gene is evolving neutrally. However, the choice of selection pressure and the outgroup might not be identical or close to the fact of nature, and the result might be different if we tried another assumptions.
 
 ```{r, echo=FALSE,out.width="49%",out.height="30%",fig.cap="Assumed molecular evolution on the built tree",fig.show='hold',fig.align='center'}
-knitr::include_graphics("arms2.out.con.tre.hp.jpg")
+knitr::include_graphics("arms2.out.con.tre copy.jpg")
 ``` 
 \begin{table}[ht]
 \caption{Summary of estimation and likelihood ratio test about molecular evolution}
@@ -154,6 +154,7 @@ In addition, I attempted two hypothesis tests on these sequences, namely whether
 
 The structure of the tree is very clear and the sequence contains only one gene, which, due to the simplicity of the data, means that selecting the most appropriate parametric model or distance metric by likelihood ratio test in ML analysis or attempting gene or codon partition in Bayesian analysis is not quite necessary, yet the two hypothesis tests attempted here are worth using a more nuanced alternative hypothesis to find possible signals in the sequence.
 
+\newpage
 ## References
 
 [1] Fritsche, L. G., Loenhardt, T., Janssen, A., Fisher, S. A., Rivera, A., Keilhauer, C. N., & Weber, B. H. (2008). Age-related macular degeneration is associated with an unstable ARMS2 (LOC387715) mRNA. $\textit{Nature genetics}$, 40(7), 892-896.
